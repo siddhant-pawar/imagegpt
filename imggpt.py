@@ -11,12 +11,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PIL import ImageGrab
 import os
 
-openai.api_key = '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'
+openai.api_key = 'openai_api_key'
 #default ocr.png path
-imfilepath = 'E:\\mywork\\python_project\\ocr_snippin_tool\\ocr.png'
+imfilepath = 'img_path'
 #code of tessearact
 try:
-    pytesseract.pytesseract.tesseract_cmd = ('C:\\Users\\SID\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe')
+    pytesseract.pytesseract.tesseract_cmd = ('tesseract_path')
 except Exception as e:
     print(e)
 
@@ -114,7 +114,7 @@ class ChatGPTApp(QMainWindow):
     def on_click(self):
         textboxValue = self.text_input.text()
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
-        image_path = "ocr.png"
+        image_path = "png_name"
         image = Image.open(image_path)
         extracted_text = pytesseract.image_to_string(image)
         self.text_input.setText(extracted_text)
