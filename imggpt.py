@@ -59,14 +59,14 @@ class SnippingWidget(QtWidgets.QMainWindow,QLineEdit):
 
     def paintEvent(self, event):
         trans = QtGui.QColor(22, 100, 233)
-        r = QtCore.QRectF(self.start_point, self.end_point).normalized()
+        #r = QtCore.QRectF(self.start_point, self.end_point).normalized()
         qp = QtGui.QPainter(self)
         trans.setAlphaF(0.2)
         qp.setBrush(trans)
         outer = QtGui.QPainterPath()
         outer.addRect(QtCore.QRectF(self.rect()))
         inner = QtGui.QPainterPath()
-        inner.addRect(r)
+        #inner.addRect(r)
         r_path = outer - inner
         qp.drawPath(r_path)
         qp.setPen(
@@ -74,7 +74,7 @@ class SnippingWidget(QtWidgets.QMainWindow,QLineEdit):
         )
         trans.setAlphaF(0)
         qp.setBrush(trans)
-        qp.drawRect(r)
+        #qp.drawRect(r)
 
 class ChatGPTApp(QMainWindow):
     def __init__(self):
