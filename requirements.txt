@@ -12,9 +12,9 @@ openai==0.28.0
 packaging==23.1
 pathlib==1.0.1
 Pillow==9.4.0
-PyQt5==5.15.9
-PyQt5-Qt5==5.15.2
-PyQt5-sip==12.12.2
+PyQt6==6.6.1
+PyQt6-Qt6==6.6.2
+PyQt6-sip==13.6.0
 pytesseract==0.3.10
 qtmodern==0.2.0
 QtPy==2.4.0

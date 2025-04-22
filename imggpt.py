@@ -1,13 +1,16 @@
+__author__ = 'https://github.com/siddhant-pawar/imagegpt'
+__copyright__ = 'Copyright (c) 2023 Siddhant_Pawar'
+__version__ = '1.0.1'
 import sys
 import openai
 import qtmodern.styles
 import qtmodern.windows
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QTextEdit, QVBoxLayout, QWidget, QLineEdit
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QTextEdit, QVBoxLayout, QWidget, QLineEdit
 import pytesseract
-from PyQt5.QtCore import pyqtSlot
+from PyQt6.QtCore import pyqtSlot
 from PIL import Image
-from PyQt5.QtGui import QCursor
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6.QtGui import QCursor
+from PyQt6 import QtCore, QtGui, QtWidgets
 from PIL import ImageGrab
 import os
 
@@ -25,10 +28,10 @@ class SnippingWidget(QtWidgets.QMainWindow,QLineEdit):
 
     def __init__(self, parent=None):
         super(SnippingWidget, self).__init__(parent)
-        self.setAttribute(QtCore.Qt.WA_NoSystemBackground, True)
-        self.setAttribute(QtCore.Qt.WA_TranslucentBackground, True)
+        self.setAttribute(QtCore.Qt.WidgetAttribute.WA_NoSystemBackground, True)
+        self.setAttribute(QtCore.Qt.WidgetAttribute.WA_TranslucentBackground, True)
         self.setStyleSheet("background:transparent;")
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.setWindowFlags(QtCore.Qt.WindowType.FramelessWindowHint)
 
 
         self.outsideSquareColor = "red"
@@ -56,14 +59,14 @@ class SnippingWidget(QtWidgets.QMainWindow,QLineEdit):
 
     def paintEvent(self, event):
         trans = QtGui.QColor(22, 100, 233)
-        r = QtCore.QRectF(self.start_point, self.end_point).normalized()
+        #r = QtCore.QRectF(self.start_point, self.end_point).normalized()
         qp = QtGui.QPainter(self)
         trans.setAlphaF(0.2)
         qp.setBrush(trans)
         outer = QtGui.QPainterPath()
         outer.addRect(QtCore.QRectF(self.rect()))
         inner = QtGui.QPainterPath()
-        inner.addRect(r)
+        #inner.addRect(r)
         r_path = outer - inner
         qp.drawPath(r_path)
         qp.setPen(
@@ -71,7 +74,7 @@ class SnippingWidget(QtWidgets.QMainWindow,QLineEdit):
         )
         trans.setAlphaF(0)
         qp.setBrush(trans)
-        qp.drawRect(r)
+        #qp.drawRect(r)
 
 class ChatGPTApp(QMainWindow):
     def __init__(self):
@@ -114,7 +117,8 @@ class ChatGPTApp(QMainWindow):
     def on_click(self):
         textboxValue = self.text_input.text()
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
-        image_path = "png_name"
+        #image_path = "png_name"
+        image_path = "ocr.png"
         image = Image.open(image_path)
         extracted_text = pytesseract.image_to_string(image)
         self.text_input.setText(extracted_text)
@@ -123,16 +127,16 @@ class ChatGPTApp(QMainWindow):
         menubar = self.menuBar()
 
         fileMenu = menubar.addMenu("File")
-        saveAct = QtWidgets.QAction(QtGui.QIcon("assets/saveIcon.png"), "Save", self)
-        saveAsAct = QtWidgets.QAction(
+        saveAct =QtGui.QAction(QtGui.QIcon("assets/saveIcon.png"), "Save", self)
+        saveAsAct =QtGui.QAction(
             QtGui.QIcon("assets/saveAsIcon.png"), "Save As", self
         )
 
         modeMenu = menubar.addMenu("Mode")
-        snipAct = QtWidgets.QAction(QtGui.QIcon("assets/cameraIcon.png"), "Snip", self)
+        snipAct =QtGui.QAction(QtGui.QIcon("assets/cameraIcon.png"), "Snip", self)
         snipAct.setShortcut(QtGui.QKeySequence("F1"))
         snipAct.triggered.connect(self.activateSnipping)
-        autoAct = QtWidgets.QAction(
+        autoAct =QtGui.QAction(
             QtGui.QIcon("assets/automationIcon.png"), "Automation", self
         )
         autoAct.setShortcut("F4")
@@ -149,7 +153,7 @@ class ChatGPTApp(QMainWindow):
 
     def activateSnipping(self):
         self.snipper.showFullScreen()
-        QApplication.setOverrideCursor(QtCore.Qt.CrossCursor)
+        QApplication.setOverrideCursor(QtCore.Qt.CursorShape.CrossCursor)
         self.hide()
 
     
@@ -190,9 +194,10 @@ class ChatGPTApp(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    qtmodern.styles.dark(app)
+    #qtmodern.styles.dark(app)
     
     window = ChatGPTApp()
-    mw = qtmodern.windows.ModernWindow(window)
+    #mw = qtmodern.windows.ModernWindow(window)
+    mw =window
     mw.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
